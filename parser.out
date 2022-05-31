@@ -1,0 +1,1512 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    cubfloat
+    cubint
+    matfloat
+    matint
+    range
+    vectfloat
+    vectint
+
+Grammar
+
+Rule 0     S' -> S
+Rule 1     S -> V PF MAIN
+Rule 2     MAIN -> main is V begin ST end main puntocoma
+Rule 3     V -> <empty>
+Rule 4     V -> id dospuntos TIPO ASIGN puntocoma V
+Rule 5     TIPO -> int
+Rule 6     TIPO -> float
+Rule 7     ASIGN -> <empty>
+Rule 8     ASIGN -> dospuntos equal VAL
+Rule 9     VAL -> E
+Rule 10    VAL -> ARRAY
+Rule 11    ARRAY -> <empty>
+Rule 12    ARRAY -> ap COM dp
+Rule 13    ARRAY -> ap COM dp coma ap COM dp
+Rule 14    ARRAY -> ap COM dp coma ap COM dp coma ap COM dp
+Rule 15    COM -> E
+Rule 16    COM -> E coma COM
+Rule 17    E -> id
+Rule 18    E -> not id
+Rule 19    E -> ap E OPER E dp
+Rule 20    E -> id OPER id
+Rule 21    OPER -> mas
+Rule 22    OPER -> menos
+Rule 23    OPER -> mult
+Rule 24    OPER -> div
+Rule 25    OPER -> less
+Rule 26    OPER -> greater
+Rule 27    OPER -> equal
+Rule 28    OPER -> and
+Rule 29    OPER -> or
+Rule 30    PF -> <empty>
+Rule 31    PF -> P PF
+Rule 32    PF -> F PF
+Rule 33    P -> procedure id is V begin ST end id puntocoma
+Rule 34    F -> function id return TIPO is V begin ST return id end id puntocoma
+Rule 35    ST -> <empty>
+Rule 36    ST -> id ARRAY dospuntos equal E puntocoma ST
+Rule 37    ST -> if E then ST ELSE end if puntocoma ST
+Rule 38    ST -> for id in id punto punto id loop ST end loop puntocoma ST
+Rule 39    ST -> loop ST exit when E puntocoma end loop puntocoma ST
+Rule 40    ELSE -> <empty>
+Rule 41    ELSE -> else ST
+
+Terminals, with rules where they appear
+
+and                  : 28
+ap                   : 12 13 13 14 14 14 19
+begin                : 2 33 34
+coma                 : 13 14 14 16
+cubfloat             : 
+cubint               : 
+div                  : 24
+dospuntos            : 4 8 36
+dp                   : 12 13 13 14 14 14 19
+else                 : 41
+end                  : 2 33 34 37 38 39
+equal                : 8 27 36
+error                : 
+exit                 : 39
+float                : 6
+for                  : 38
+function             : 34
+greater              : 26
+id                   : 4 17 18 20 20 33 33 34 34 34 36 38 38 38
+if                   : 37 37
+in                   : 38
+int                  : 5
+is                   : 2 33 34
+less                 : 25
+loop                 : 38 38 39 39
+main                 : 2 2
+mas                  : 21
+matfloat             : 
+matint               : 
+menos                : 22
+mult                 : 23
+not                  : 18
+or                   : 29
+procedure            : 33
+punto                : 38 38
+puntocoma            : 2 4 33 34 36 37 38 39 39
+range                : 
+return               : 34 34
+then                 : 37
+vectfloat            : 
+vectint              : 
+when                 : 39
+
+Nonterminals, with rules where they appear
+
+ARRAY                : 10 36
+ASIGN                : 4
+COM                  : 12 13 13 14 14 14 16
+E                    : 9 15 16 19 19 36 37 39
+ELSE                 : 37
+F                    : 32
+MAIN                 : 1
+OPER                 : 19 20
+P                    : 31
+PF                   : 1 31 32
+S                    : 0
+ST                   : 2 33 34 36 37 37 38 38 39 39 41
+TIPO                 : 4 34
+V                    : 1 2 4 33 34
+VAL                  : 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . S
+    (1) S -> . V PF MAIN
+    (3) V -> .
+    (4) V -> . id dospuntos TIPO ASIGN puntocoma V
+
+    procedure       reduce using rule 3 (V -> .)
+    function        reduce using rule 3 (V -> .)
+    main            reduce using rule 3 (V -> .)
+    id              shift and go to state 3
+
+    S                              shift and go to state 1
+    V                              shift and go to state 2
+
+state 1
+
+    (0) S' -> S .
+
+
+
+state 2
+
+    (1) S -> V . PF MAIN
+    (30) PF -> .
+    (31) PF -> . P PF
+    (32) PF -> . F PF
+    (33) P -> . procedure id is V begin ST end id puntocoma
+    (34) F -> . function id return TIPO is V begin ST return id end id puntocoma
+
+    main            reduce using rule 30 (PF -> .)
+    procedure       shift and go to state 7
+    function        shift and go to state 8
+
+    PF                             shift and go to state 4
+    P                              shift and go to state 5
+    F                              shift and go to state 6
+
+state 3
+
+    (4) V -> id . dospuntos TIPO ASIGN puntocoma V
+
+    dospuntos       shift and go to state 9
+
+
+state 4
+
+    (1) S -> V PF . MAIN
+    (2) MAIN -> . main is V begin ST end main puntocoma
+
+    main            shift and go to state 11
+
+    MAIN                           shift and go to state 10
+
+state 5
+
+    (31) PF -> P . PF
+    (30) PF -> .
+    (31) PF -> . P PF
+    (32) PF -> . F PF
+    (33) P -> . procedure id is V begin ST end id puntocoma
+    (34) F -> . function id return TIPO is V begin ST return id end id puntocoma
+
+    main            reduce using rule 30 (PF -> .)
+    procedure       shift and go to state 7
+    function        shift and go to state 8
+
+    P                              shift and go to state 5
+    PF                             shift and go to state 12
+    F                              shift and go to state 6
+
+state 6
+
+    (32) PF -> F . PF
+    (30) PF -> .
+    (31) PF -> . P PF
+    (32) PF -> . F PF
+    (33) P -> . procedure id is V begin ST end id puntocoma
+    (34) F -> . function id return TIPO is V begin ST return id end id puntocoma
+
+    main            reduce using rule 30 (PF -> .)
+    procedure       shift and go to state 7
+    function        shift and go to state 8
+
+    F                              shift and go to state 6
+    PF                             shift and go to state 13
+    P                              shift and go to state 5
+
+state 7
+
+    (33) P -> procedure . id is V begin ST end id puntocoma
+
+    id              shift and go to state 14
+
+
+state 8
+
+    (34) F -> function . id return TIPO is V begin ST return id end id puntocoma
+
+    id              shift and go to state 15
+
+
+state 9
+
+    (4) V -> id dospuntos . TIPO ASIGN puntocoma V
+    (5) TIPO -> . int
+    (6) TIPO -> . float
+
+    int             shift and go to state 17
+    float           shift and go to state 18
+
+    TIPO                           shift and go to state 16
+
+state 10
+
+    (1) S -> V PF MAIN .
+
+    $end            reduce using rule 1 (S -> V PF MAIN .)
+
+
+state 11
+
+    (2) MAIN -> main . is V begin ST end main puntocoma
+
+    is              shift and go to state 19
+
+
+state 12
+
+    (31) PF -> P PF .
+
+    main            reduce using rule 31 (PF -> P PF .)
+
+
+state 13
+
+    (32) PF -> F PF .
+
+    main            reduce using rule 32 (PF -> F PF .)
+
+
+state 14
+
+    (33) P -> procedure id . is V begin ST end id puntocoma
+
+    is              shift and go to state 20
+
+
+state 15
+
+    (34) F -> function id . return TIPO is V begin ST return id end id puntocoma
+
+    return          shift and go to state 21
+
+
+state 16
+
+    (4) V -> id dospuntos TIPO . ASIGN puntocoma V
+    (7) ASIGN -> .
+    (8) ASIGN -> . dospuntos equal VAL
+
+    puntocoma       reduce using rule 7 (ASIGN -> .)
+    dospuntos       shift and go to state 22
+
+    ASIGN                          shift and go to state 23
+
+state 17
+
+    (5) TIPO -> int .
+
+    dospuntos       reduce using rule 5 (TIPO -> int .)
+    puntocoma       reduce using rule 5 (TIPO -> int .)
+    is              reduce using rule 5 (TIPO -> int .)
+
+
+state 18
+
+    (6) TIPO -> float .
+
+    dospuntos       reduce using rule 6 (TIPO -> float .)
+    puntocoma       reduce using rule 6 (TIPO -> float .)
+    is              reduce using rule 6 (TIPO -> float .)
+
+
+state 19
+
+    (2) MAIN -> main is . V begin ST end main puntocoma
+    (3) V -> .
+    (4) V -> . id dospuntos TIPO ASIGN puntocoma V
+
+    begin           reduce using rule 3 (V -> .)
+    id              shift and go to state 3
+
+    V                              shift and go to state 24
+
+state 20
+
+    (33) P -> procedure id is . V begin ST end id puntocoma
+    (3) V -> .
+    (4) V -> . id dospuntos TIPO ASIGN puntocoma V
+
+    begin           reduce using rule 3 (V -> .)
+    id              shift and go to state 3
+
+    V                              shift and go to state 25
+
+state 21
+
+    (34) F -> function id return . TIPO is V begin ST return id end id puntocoma
+    (5) TIPO -> . int
+    (6) TIPO -> . float
+
+    int             shift and go to state 17
+    float           shift and go to state 18
+
+    TIPO                           shift and go to state 26
+
+state 22
+
+    (8) ASIGN -> dospuntos . equal VAL
+
+    equal           shift and go to state 27
+
+
+state 23
+
+    (4) V -> id dospuntos TIPO ASIGN . puntocoma V
+
+    puntocoma       shift and go to state 28
+
+
+state 24
+
+    (2) MAIN -> main is V . begin ST end main puntocoma
+
+    begin           shift and go to state 29
+
+
+state 25
+
+    (33) P -> procedure id is V . begin ST end id puntocoma
+
+    begin           shift and go to state 30
+
+
+state 26
+
+    (34) F -> function id return TIPO . is V begin ST return id end id puntocoma
+
+    is              shift and go to state 31
+
+
+state 27
+
+    (8) ASIGN -> dospuntos equal . VAL
+    (9) VAL -> . E
+    (10) VAL -> . ARRAY
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+    (11) ARRAY -> .
+    (12) ARRAY -> . ap COM dp
+    (13) ARRAY -> . ap COM dp coma ap COM dp
+    (14) ARRAY -> . ap COM dp coma ap COM dp coma ap COM dp
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 37
+    puntocoma       reduce using rule 11 (ARRAY -> .)
+
+    VAL                            shift and go to state 32
+    E                              shift and go to state 33
+    ARRAY                          shift and go to state 34
+
+state 28
+
+    (4) V -> id dospuntos TIPO ASIGN puntocoma . V
+    (3) V -> .
+    (4) V -> . id dospuntos TIPO ASIGN puntocoma V
+
+    procedure       reduce using rule 3 (V -> .)
+    function        reduce using rule 3 (V -> .)
+    main            reduce using rule 3 (V -> .)
+    begin           reduce using rule 3 (V -> .)
+    id              shift and go to state 3
+
+    V                              shift and go to state 38
+
+state 29
+
+    (2) MAIN -> main is V begin . ST end main puntocoma
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    end             reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 39
+
+state 30
+
+    (33) P -> procedure id is V begin . ST end id puntocoma
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    end             reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 44
+
+state 31
+
+    (34) F -> function id return TIPO is . V begin ST return id end id puntocoma
+    (3) V -> .
+    (4) V -> . id dospuntos TIPO ASIGN puntocoma V
+
+    begin           reduce using rule 3 (V -> .)
+    id              shift and go to state 3
+
+    V                              shift and go to state 45
+
+state 32
+
+    (8) ASIGN -> dospuntos equal VAL .
+
+    puntocoma       reduce using rule 8 (ASIGN -> dospuntos equal VAL .)
+
+
+state 33
+
+    (9) VAL -> E .
+
+    puntocoma       reduce using rule 9 (VAL -> E .)
+
+
+state 34
+
+    (10) VAL -> ARRAY .
+
+    puntocoma       reduce using rule 10 (VAL -> ARRAY .)
+
+
+state 35
+
+    (17) E -> id .
+    (20) E -> id . OPER id
+    (21) OPER -> . mas
+    (22) OPER -> . menos
+    (23) OPER -> . mult
+    (24) OPER -> . div
+    (25) OPER -> . less
+    (26) OPER -> . greater
+    (27) OPER -> . equal
+    (28) OPER -> . and
+    (29) OPER -> . or
+
+  ! shift/reduce conflict for mas resolved as shift
+  ! shift/reduce conflict for menos resolved as shift
+  ! shift/reduce conflict for mult resolved as shift
+  ! shift/reduce conflict for div resolved as shift
+  ! shift/reduce conflict for less resolved as shift
+  ! shift/reduce conflict for greater resolved as shift
+  ! shift/reduce conflict for equal resolved as shift
+  ! shift/reduce conflict for and resolved as shift
+  ! shift/reduce conflict for or resolved as shift
+    puntocoma       reduce using rule 17 (E -> id .)
+    coma            reduce using rule 17 (E -> id .)
+    dp              reduce using rule 17 (E -> id .)
+    then            reduce using rule 17 (E -> id .)
+    mas             shift and go to state 47
+    menos           shift and go to state 48
+    mult            shift and go to state 49
+    div             shift and go to state 50
+    less            shift and go to state 51
+    greater         shift and go to state 52
+    equal           shift and go to state 53
+    and             shift and go to state 54
+    or              shift and go to state 55
+
+  ! mas             [ reduce using rule 17 (E -> id .) ]
+  ! menos           [ reduce using rule 17 (E -> id .) ]
+  ! mult            [ reduce using rule 17 (E -> id .) ]
+  ! div             [ reduce using rule 17 (E -> id .) ]
+  ! less            [ reduce using rule 17 (E -> id .) ]
+  ! greater         [ reduce using rule 17 (E -> id .) ]
+  ! equal           [ reduce using rule 17 (E -> id .) ]
+  ! and             [ reduce using rule 17 (E -> id .) ]
+  ! or              [ reduce using rule 17 (E -> id .) ]
+
+    OPER                           shift and go to state 46
+
+state 36
+
+    (18) E -> not . id
+
+    id              shift and go to state 56
+
+
+state 37
+
+    (19) E -> ap . E OPER E dp
+    (12) ARRAY -> ap . COM dp
+    (13) ARRAY -> ap . COM dp coma ap COM dp
+    (14) ARRAY -> ap . COM dp coma ap COM dp coma ap COM dp
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+    (15) COM -> . E
+    (16) COM -> . E coma COM
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    E                              shift and go to state 58
+    COM                            shift and go to state 59
+
+state 38
+
+    (4) V -> id dospuntos TIPO ASIGN puntocoma V .
+
+    procedure       reduce using rule 4 (V -> id dospuntos TIPO ASIGN puntocoma V .)
+    function        reduce using rule 4 (V -> id dospuntos TIPO ASIGN puntocoma V .)
+    main            reduce using rule 4 (V -> id dospuntos TIPO ASIGN puntocoma V .)
+    begin           reduce using rule 4 (V -> id dospuntos TIPO ASIGN puntocoma V .)
+
+
+state 39
+
+    (2) MAIN -> main is V begin ST . end main puntocoma
+
+    end             shift and go to state 60
+
+
+state 40
+
+    (36) ST -> id . ARRAY dospuntos equal E puntocoma ST
+    (11) ARRAY -> .
+    (12) ARRAY -> . ap COM dp
+    (13) ARRAY -> . ap COM dp coma ap COM dp
+    (14) ARRAY -> . ap COM dp coma ap COM dp coma ap COM dp
+
+    dospuntos       reduce using rule 11 (ARRAY -> .)
+    ap              shift and go to state 62
+
+    ARRAY                          shift and go to state 61
+
+state 41
+
+    (37) ST -> if . E then ST ELSE end if puntocoma ST
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    E                              shift and go to state 63
+
+state 42
+
+    (38) ST -> for . id in id punto punto id loop ST end loop puntocoma ST
+
+    id              shift and go to state 64
+
+
+state 43
+
+    (39) ST -> loop . ST exit when E puntocoma end loop puntocoma ST
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    exit            reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 65
+
+state 44
+
+    (33) P -> procedure id is V begin ST . end id puntocoma
+
+    end             shift and go to state 66
+
+
+state 45
+
+    (34) F -> function id return TIPO is V . begin ST return id end id puntocoma
+
+    begin           shift and go to state 67
+
+
+state 46
+
+    (20) E -> id OPER . id
+
+    id              shift and go to state 68
+
+
+state 47
+
+    (21) OPER -> mas .
+
+    id              reduce using rule 21 (OPER -> mas .)
+    not             reduce using rule 21 (OPER -> mas .)
+    ap              reduce using rule 21 (OPER -> mas .)
+
+
+state 48
+
+    (22) OPER -> menos .
+
+    id              reduce using rule 22 (OPER -> menos .)
+    not             reduce using rule 22 (OPER -> menos .)
+    ap              reduce using rule 22 (OPER -> menos .)
+
+
+state 49
+
+    (23) OPER -> mult .
+
+    id              reduce using rule 23 (OPER -> mult .)
+    not             reduce using rule 23 (OPER -> mult .)
+    ap              reduce using rule 23 (OPER -> mult .)
+
+
+state 50
+
+    (24) OPER -> div .
+
+    id              reduce using rule 24 (OPER -> div .)
+    not             reduce using rule 24 (OPER -> div .)
+    ap              reduce using rule 24 (OPER -> div .)
+
+
+state 51
+
+    (25) OPER -> less .
+
+    id              reduce using rule 25 (OPER -> less .)
+    not             reduce using rule 25 (OPER -> less .)
+    ap              reduce using rule 25 (OPER -> less .)
+
+
+state 52
+
+    (26) OPER -> greater .
+
+    id              reduce using rule 26 (OPER -> greater .)
+    not             reduce using rule 26 (OPER -> greater .)
+    ap              reduce using rule 26 (OPER -> greater .)
+
+
+state 53
+
+    (27) OPER -> equal .
+
+    id              reduce using rule 27 (OPER -> equal .)
+    not             reduce using rule 27 (OPER -> equal .)
+    ap              reduce using rule 27 (OPER -> equal .)
+
+
+state 54
+
+    (28) OPER -> and .
+
+    id              reduce using rule 28 (OPER -> and .)
+    not             reduce using rule 28 (OPER -> and .)
+    ap              reduce using rule 28 (OPER -> and .)
+
+
+state 55
+
+    (29) OPER -> or .
+
+    id              reduce using rule 29 (OPER -> or .)
+    not             reduce using rule 29 (OPER -> or .)
+    ap              reduce using rule 29 (OPER -> or .)
+
+
+state 56
+
+    (18) E -> not id .
+
+    puntocoma       reduce using rule 18 (E -> not id .)
+    coma            reduce using rule 18 (E -> not id .)
+    mas             reduce using rule 18 (E -> not id .)
+    menos           reduce using rule 18 (E -> not id .)
+    mult            reduce using rule 18 (E -> not id .)
+    div             reduce using rule 18 (E -> not id .)
+    less            reduce using rule 18 (E -> not id .)
+    greater         reduce using rule 18 (E -> not id .)
+    equal           reduce using rule 18 (E -> not id .)
+    and             reduce using rule 18 (E -> not id .)
+    or              reduce using rule 18 (E -> not id .)
+    dp              reduce using rule 18 (E -> not id .)
+    then            reduce using rule 18 (E -> not id .)
+
+
+state 57
+
+    (19) E -> ap . E OPER E dp
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    E                              shift and go to state 69
+
+state 58
+
+    (19) E -> ap E . OPER E dp
+    (15) COM -> E .
+    (16) COM -> E . coma COM
+    (21) OPER -> . mas
+    (22) OPER -> . menos
+    (23) OPER -> . mult
+    (24) OPER -> . div
+    (25) OPER -> . less
+    (26) OPER -> . greater
+    (27) OPER -> . equal
+    (28) OPER -> . and
+    (29) OPER -> . or
+
+    dp              reduce using rule 15 (COM -> E .)
+    coma            shift and go to state 71
+    mas             shift and go to state 47
+    menos           shift and go to state 48
+    mult            shift and go to state 49
+    div             shift and go to state 50
+    less            shift and go to state 51
+    greater         shift and go to state 52
+    equal           shift and go to state 53
+    and             shift and go to state 54
+    or              shift and go to state 55
+
+    OPER                           shift and go to state 70
+
+state 59
+
+    (12) ARRAY -> ap COM . dp
+    (13) ARRAY -> ap COM . dp coma ap COM dp
+    (14) ARRAY -> ap COM . dp coma ap COM dp coma ap COM dp
+
+    dp              shift and go to state 72
+
+
+state 60
+
+    (2) MAIN -> main is V begin ST end . main puntocoma
+
+    main            shift and go to state 73
+
+
+state 61
+
+    (36) ST -> id ARRAY . dospuntos equal E puntocoma ST
+
+    dospuntos       shift and go to state 74
+
+
+state 62
+
+    (12) ARRAY -> ap . COM dp
+    (13) ARRAY -> ap . COM dp coma ap COM dp
+    (14) ARRAY -> ap . COM dp coma ap COM dp coma ap COM dp
+    (15) COM -> . E
+    (16) COM -> . E coma COM
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    COM                            shift and go to state 59
+    E                              shift and go to state 75
+
+state 63
+
+    (37) ST -> if E . then ST ELSE end if puntocoma ST
+
+    then            shift and go to state 76
+
+
+state 64
+
+    (38) ST -> for id . in id punto punto id loop ST end loop puntocoma ST
+
+    in              shift and go to state 77
+
+
+state 65
+
+    (39) ST -> loop ST . exit when E puntocoma end loop puntocoma ST
+
+    exit            shift and go to state 78
+
+
+state 66
+
+    (33) P -> procedure id is V begin ST end . id puntocoma
+
+    id              shift and go to state 79
+
+
+state 67
+
+    (34) F -> function id return TIPO is V begin . ST return id end id puntocoma
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    return          reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 80
+
+state 68
+
+    (20) E -> id OPER id .
+
+    puntocoma       reduce using rule 20 (E -> id OPER id .)
+    coma            reduce using rule 20 (E -> id OPER id .)
+    mas             reduce using rule 20 (E -> id OPER id .)
+    menos           reduce using rule 20 (E -> id OPER id .)
+    mult            reduce using rule 20 (E -> id OPER id .)
+    div             reduce using rule 20 (E -> id OPER id .)
+    less            reduce using rule 20 (E -> id OPER id .)
+    greater         reduce using rule 20 (E -> id OPER id .)
+    equal           reduce using rule 20 (E -> id OPER id .)
+    and             reduce using rule 20 (E -> id OPER id .)
+    or              reduce using rule 20 (E -> id OPER id .)
+    dp              reduce using rule 20 (E -> id OPER id .)
+    then            reduce using rule 20 (E -> id OPER id .)
+
+
+state 69
+
+    (19) E -> ap E . OPER E dp
+    (21) OPER -> . mas
+    (22) OPER -> . menos
+    (23) OPER -> . mult
+    (24) OPER -> . div
+    (25) OPER -> . less
+    (26) OPER -> . greater
+    (27) OPER -> . equal
+    (28) OPER -> . and
+    (29) OPER -> . or
+
+    mas             shift and go to state 47
+    menos           shift and go to state 48
+    mult            shift and go to state 49
+    div             shift and go to state 50
+    less            shift and go to state 51
+    greater         shift and go to state 52
+    equal           shift and go to state 53
+    and             shift and go to state 54
+    or              shift and go to state 55
+
+    OPER                           shift and go to state 70
+
+state 70
+
+    (19) E -> ap E OPER . E dp
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    E                              shift and go to state 81
+
+state 71
+
+    (16) COM -> E coma . COM
+    (15) COM -> . E
+    (16) COM -> . E coma COM
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    E                              shift and go to state 75
+    COM                            shift and go to state 82
+
+state 72
+
+    (12) ARRAY -> ap COM dp .
+    (13) ARRAY -> ap COM dp . coma ap COM dp
+    (14) ARRAY -> ap COM dp . coma ap COM dp coma ap COM dp
+
+    puntocoma       reduce using rule 12 (ARRAY -> ap COM dp .)
+    dospuntos       reduce using rule 12 (ARRAY -> ap COM dp .)
+    coma            shift and go to state 83
+
+
+state 73
+
+    (2) MAIN -> main is V begin ST end main . puntocoma
+
+    puntocoma       shift and go to state 84
+
+
+state 74
+
+    (36) ST -> id ARRAY dospuntos . equal E puntocoma ST
+
+    equal           shift and go to state 85
+
+
+state 75
+
+    (15) COM -> E .
+    (16) COM -> E . coma COM
+
+    dp              reduce using rule 15 (COM -> E .)
+    coma            shift and go to state 71
+
+
+state 76
+
+    (37) ST -> if E then . ST ELSE end if puntocoma ST
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    else            reduce using rule 35 (ST -> .)
+    end             reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 86
+
+state 77
+
+    (38) ST -> for id in . id punto punto id loop ST end loop puntocoma ST
+
+    id              shift and go to state 87
+
+
+state 78
+
+    (39) ST -> loop ST exit . when E puntocoma end loop puntocoma ST
+
+    when            shift and go to state 88
+
+
+state 79
+
+    (33) P -> procedure id is V begin ST end id . puntocoma
+
+    puntocoma       shift and go to state 89
+
+
+state 80
+
+    (34) F -> function id return TIPO is V begin ST . return id end id puntocoma
+
+    return          shift and go to state 90
+
+
+state 81
+
+    (19) E -> ap E OPER E . dp
+
+    dp              shift and go to state 91
+
+
+state 82
+
+    (16) COM -> E coma COM .
+
+    dp              reduce using rule 16 (COM -> E coma COM .)
+
+
+state 83
+
+    (13) ARRAY -> ap COM dp coma . ap COM dp
+    (14) ARRAY -> ap COM dp coma . ap COM dp coma ap COM dp
+
+    ap              shift and go to state 92
+
+
+state 84
+
+    (2) MAIN -> main is V begin ST end main puntocoma .
+
+    $end            reduce using rule 2 (MAIN -> main is V begin ST end main puntocoma .)
+
+
+state 85
+
+    (36) ST -> id ARRAY dospuntos equal . E puntocoma ST
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    E                              shift and go to state 93
+
+state 86
+
+    (37) ST -> if E then ST . ELSE end if puntocoma ST
+    (40) ELSE -> .
+    (41) ELSE -> . else ST
+
+    end             reduce using rule 40 (ELSE -> .)
+    else            shift and go to state 95
+
+    ELSE                           shift and go to state 94
+
+state 87
+
+    (38) ST -> for id in id . punto punto id loop ST end loop puntocoma ST
+
+    punto           shift and go to state 96
+
+
+state 88
+
+    (39) ST -> loop ST exit when . E puntocoma end loop puntocoma ST
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    E                              shift and go to state 97
+
+state 89
+
+    (33) P -> procedure id is V begin ST end id puntocoma .
+
+    procedure       reduce using rule 33 (P -> procedure id is V begin ST end id puntocoma .)
+    function        reduce using rule 33 (P -> procedure id is V begin ST end id puntocoma .)
+    main            reduce using rule 33 (P -> procedure id is V begin ST end id puntocoma .)
+
+
+state 90
+
+    (34) F -> function id return TIPO is V begin ST return . id end id puntocoma
+
+    id              shift and go to state 98
+
+
+state 91
+
+    (19) E -> ap E OPER E dp .
+
+    puntocoma       reduce using rule 19 (E -> ap E OPER E dp .)
+    coma            reduce using rule 19 (E -> ap E OPER E dp .)
+    mas             reduce using rule 19 (E -> ap E OPER E dp .)
+    menos           reduce using rule 19 (E -> ap E OPER E dp .)
+    mult            reduce using rule 19 (E -> ap E OPER E dp .)
+    div             reduce using rule 19 (E -> ap E OPER E dp .)
+    less            reduce using rule 19 (E -> ap E OPER E dp .)
+    greater         reduce using rule 19 (E -> ap E OPER E dp .)
+    equal           reduce using rule 19 (E -> ap E OPER E dp .)
+    and             reduce using rule 19 (E -> ap E OPER E dp .)
+    or              reduce using rule 19 (E -> ap E OPER E dp .)
+    dp              reduce using rule 19 (E -> ap E OPER E dp .)
+    then            reduce using rule 19 (E -> ap E OPER E dp .)
+
+
+state 92
+
+    (13) ARRAY -> ap COM dp coma ap . COM dp
+    (14) ARRAY -> ap COM dp coma ap . COM dp coma ap COM dp
+    (15) COM -> . E
+    (16) COM -> . E coma COM
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    COM                            shift and go to state 99
+    E                              shift and go to state 75
+
+state 93
+
+    (36) ST -> id ARRAY dospuntos equal E . puntocoma ST
+
+    puntocoma       shift and go to state 100
+
+
+state 94
+
+    (37) ST -> if E then ST ELSE . end if puntocoma ST
+
+    end             shift and go to state 101
+
+
+state 95
+
+    (41) ELSE -> else . ST
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    end             reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 102
+
+state 96
+
+    (38) ST -> for id in id punto . punto id loop ST end loop puntocoma ST
+
+    punto           shift and go to state 103
+
+
+state 97
+
+    (39) ST -> loop ST exit when E . puntocoma end loop puntocoma ST
+
+    puntocoma       shift and go to state 104
+
+
+state 98
+
+    (34) F -> function id return TIPO is V begin ST return id . end id puntocoma
+
+    end             shift and go to state 105
+
+
+state 99
+
+    (13) ARRAY -> ap COM dp coma ap COM . dp
+    (14) ARRAY -> ap COM dp coma ap COM . dp coma ap COM dp
+
+    dp              shift and go to state 106
+
+
+state 100
+
+    (36) ST -> id ARRAY dospuntos equal E puntocoma . ST
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    end             reduce using rule 35 (ST -> .)
+    exit            reduce using rule 35 (ST -> .)
+    return          reduce using rule 35 (ST -> .)
+    else            reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 107
+
+state 101
+
+    (37) ST -> if E then ST ELSE end . if puntocoma ST
+
+    if              shift and go to state 108
+
+
+state 102
+
+    (41) ELSE -> else ST .
+
+    end             reduce using rule 41 (ELSE -> else ST .)
+
+
+state 103
+
+    (38) ST -> for id in id punto punto . id loop ST end loop puntocoma ST
+
+    id              shift and go to state 109
+
+
+state 104
+
+    (39) ST -> loop ST exit when E puntocoma . end loop puntocoma ST
+
+    end             shift and go to state 110
+
+
+state 105
+
+    (34) F -> function id return TIPO is V begin ST return id end . id puntocoma
+
+    id              shift and go to state 111
+
+
+state 106
+
+    (13) ARRAY -> ap COM dp coma ap COM dp .
+    (14) ARRAY -> ap COM dp coma ap COM dp . coma ap COM dp
+
+    puntocoma       reduce using rule 13 (ARRAY -> ap COM dp coma ap COM dp .)
+    dospuntos       reduce using rule 13 (ARRAY -> ap COM dp coma ap COM dp .)
+    coma            shift and go to state 112
+
+
+state 107
+
+    (36) ST -> id ARRAY dospuntos equal E puntocoma ST .
+
+    end             reduce using rule 36 (ST -> id ARRAY dospuntos equal E puntocoma ST .)
+    exit            reduce using rule 36 (ST -> id ARRAY dospuntos equal E puntocoma ST .)
+    return          reduce using rule 36 (ST -> id ARRAY dospuntos equal E puntocoma ST .)
+    else            reduce using rule 36 (ST -> id ARRAY dospuntos equal E puntocoma ST .)
+
+
+state 108
+
+    (37) ST -> if E then ST ELSE end if . puntocoma ST
+
+    puntocoma       shift and go to state 113
+
+
+state 109
+
+    (38) ST -> for id in id punto punto id . loop ST end loop puntocoma ST
+
+    loop            shift and go to state 114
+
+
+state 110
+
+    (39) ST -> loop ST exit when E puntocoma end . loop puntocoma ST
+
+    loop            shift and go to state 115
+
+
+state 111
+
+    (34) F -> function id return TIPO is V begin ST return id end id . puntocoma
+
+    puntocoma       shift and go to state 116
+
+
+state 112
+
+    (14) ARRAY -> ap COM dp coma ap COM dp coma . ap COM dp
+
+    ap              shift and go to state 117
+
+
+state 113
+
+    (37) ST -> if E then ST ELSE end if puntocoma . ST
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    end             reduce using rule 35 (ST -> .)
+    exit            reduce using rule 35 (ST -> .)
+    return          reduce using rule 35 (ST -> .)
+    else            reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 118
+
+state 114
+
+    (38) ST -> for id in id punto punto id loop . ST end loop puntocoma ST
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    end             reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 119
+
+state 115
+
+    (39) ST -> loop ST exit when E puntocoma end loop . puntocoma ST
+
+    puntocoma       shift and go to state 120
+
+
+state 116
+
+    (34) F -> function id return TIPO is V begin ST return id end id puntocoma .
+
+    procedure       reduce using rule 34 (F -> function id return TIPO is V begin ST return id end id puntocoma .)
+    function        reduce using rule 34 (F -> function id return TIPO is V begin ST return id end id puntocoma .)
+    main            reduce using rule 34 (F -> function id return TIPO is V begin ST return id end id puntocoma .)
+
+
+state 117
+
+    (14) ARRAY -> ap COM dp coma ap COM dp coma ap . COM dp
+    (15) COM -> . E
+    (16) COM -> . E coma COM
+    (17) E -> . id
+    (18) E -> . not id
+    (19) E -> . ap E OPER E dp
+    (20) E -> . id OPER id
+
+    id              shift and go to state 35
+    not             shift and go to state 36
+    ap              shift and go to state 57
+
+    COM                            shift and go to state 121
+    E                              shift and go to state 75
+
+state 118
+
+    (37) ST -> if E then ST ELSE end if puntocoma ST .
+
+    end             reduce using rule 37 (ST -> if E then ST ELSE end if puntocoma ST .)
+    exit            reduce using rule 37 (ST -> if E then ST ELSE end if puntocoma ST .)
+    return          reduce using rule 37 (ST -> if E then ST ELSE end if puntocoma ST .)
+    else            reduce using rule 37 (ST -> if E then ST ELSE end if puntocoma ST .)
+
+
+state 119
+
+    (38) ST -> for id in id punto punto id loop ST . end loop puntocoma ST
+
+    end             shift and go to state 122
+
+
+state 120
+
+    (39) ST -> loop ST exit when E puntocoma end loop puntocoma . ST
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    end             reduce using rule 35 (ST -> .)
+    exit            reduce using rule 35 (ST -> .)
+    return          reduce using rule 35 (ST -> .)
+    else            reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 123
+
+state 121
+
+    (14) ARRAY -> ap COM dp coma ap COM dp coma ap COM . dp
+
+    dp              shift and go to state 124
+
+
+state 122
+
+    (38) ST -> for id in id punto punto id loop ST end . loop puntocoma ST
+
+    loop            shift and go to state 125
+
+
+state 123
+
+    (39) ST -> loop ST exit when E puntocoma end loop puntocoma ST .
+
+    end             reduce using rule 39 (ST -> loop ST exit when E puntocoma end loop puntocoma ST .)
+    exit            reduce using rule 39 (ST -> loop ST exit when E puntocoma end loop puntocoma ST .)
+    return          reduce using rule 39 (ST -> loop ST exit when E puntocoma end loop puntocoma ST .)
+    else            reduce using rule 39 (ST -> loop ST exit when E puntocoma end loop puntocoma ST .)
+
+
+state 124
+
+    (14) ARRAY -> ap COM dp coma ap COM dp coma ap COM dp .
+
+    puntocoma       reduce using rule 14 (ARRAY -> ap COM dp coma ap COM dp coma ap COM dp .)
+    dospuntos       reduce using rule 14 (ARRAY -> ap COM dp coma ap COM dp coma ap COM dp .)
+
+
+state 125
+
+    (38) ST -> for id in id punto punto id loop ST end loop . puntocoma ST
+
+    puntocoma       shift and go to state 126
+
+
+state 126
+
+    (38) ST -> for id in id punto punto id loop ST end loop puntocoma . ST
+    (35) ST -> .
+    (36) ST -> . id ARRAY dospuntos equal E puntocoma ST
+    (37) ST -> . if E then ST ELSE end if puntocoma ST
+    (38) ST -> . for id in id punto punto id loop ST end loop puntocoma ST
+    (39) ST -> . loop ST exit when E puntocoma end loop puntocoma ST
+
+    end             reduce using rule 35 (ST -> .)
+    exit            reduce using rule 35 (ST -> .)
+    return          reduce using rule 35 (ST -> .)
+    else            reduce using rule 35 (ST -> .)
+    id              shift and go to state 40
+    if              shift and go to state 41
+    for             shift and go to state 42
+    loop            shift and go to state 43
+
+    ST                             shift and go to state 127
+
+state 127
+
+    (38) ST -> for id in id punto punto id loop ST end loop puntocoma ST .
+
+    end             reduce using rule 38 (ST -> for id in id punto punto id loop ST end loop puntocoma ST .)
+    exit            reduce using rule 38 (ST -> for id in id punto punto id loop ST end loop puntocoma ST .)
+    return          reduce using rule 38 (ST -> for id in id punto punto id loop ST end loop puntocoma ST .)
+    else            reduce using rule 38 (ST -> for id in id punto punto id loop ST end loop puntocoma ST .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for mas in state 35 resolved as shift
+WARNING: shift/reduce conflict for menos in state 35 resolved as shift
+WARNING: shift/reduce conflict for mult in state 35 resolved as shift
+WARNING: shift/reduce conflict for div in state 35 resolved as shift
+WARNING: shift/reduce conflict for less in state 35 resolved as shift
+WARNING: shift/reduce conflict for greater in state 35 resolved as shift
+WARNING: shift/reduce conflict for equal in state 35 resolved as shift
+WARNING: shift/reduce conflict for and in state 35 resolved as shift
+WARNING: shift/reduce conflict for or in state 35 resolved as shift

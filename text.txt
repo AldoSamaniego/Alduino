@@ -1,0 +1,16 @@
+id : int := (id,id,id),(id,id,id),(id,id,id);
+id : float ;
+
+
+procedure id is
+        id : int ;
+begin
+        id : = id;
+
+end id;
+
+
+ main is
+ begin
+  id := id;
+  end main;
