@@ -1,7 +1,10 @@
 #Aldo Jesu Samaniego Silva A00825779
-#Preguntar sobre := poner varias expresiones adentro de un parenteris y lo de procedure main
+#poner varias expresiones adentro de un parenteris 
 import ply.lex as lex
 import ply.yacc as yacc
+import sys
+
+tabla_simbolos = {}
 
 tokens = [
     'procedure',
@@ -14,12 +17,8 @@ tokens = [
     'main',
     'int',
     'float',
-    'vectint',
-    'vectfloat',
-    'matint',
-    'matfloat',
-    'cubint',
-    'cubfloat',
+	'intv',
+    'floatv',
     'not',
     'if',
     'then',
@@ -66,10 +65,7 @@ def t_procedure(t):
 	r'procedure'
 	t.type = 'procedure'
 	return t
-def t_id(t):
-	r'id'
-	t.type = 'id'
-	return t
+
 
 def t_is(t):
 	r'is'
@@ -111,35 +107,15 @@ def t_float(t):
 	t.type = 'float'
 	return t
 
-def t_vectint(t):
-	r'vectint'
-	t.type = 'vectint'
+def t_floatv(t):
+	r'\d+\.\d+'
+	t.value = float(t.value)
 	return t
 
-def t_vectfloat(t):
-	r'vectfloat'
-	t.type = 'vectfloat'
-	return t
-
-def t_matint(t):
-	r'matint'
-	t.type = 'matint'
-	return t
-
-def t_matfloat(t):
-	r'matfloat'
-	t.type = 'matfloat'
-	return t
-
-def t_cubint(t):
-	r'cubint'
-	t.type = 'cubint'
-	return t
-
-def t_cubfloat(t):
-	r'cubfloat'
-	t.type = 'cubfloat'
-	return t
+def t_intv(t):
+	r'\d+'
+	t.value = int(t.value)
+	return t	
 
 def t_not(t):
 	r'not'
@@ -186,6 +162,11 @@ def t_in(t):
 	t.type = 'in'
 	return t
 
+def t_id(t):
+	r'[a-zA-Z_][a-zA-Z_0-9]*'
+	t.type = 'id'
+	return t
+
 def t_error(t):
 	print("Illegal characters!")
 	t.lexer.skip(1)
@@ -204,82 +185,108 @@ def p_MAIN(p):
     MAIN : main is V begin ST end main puntocoma
 	'''
 
+
 def p_V(p):
 	'''
-    V : 
-	V : id dospuntos TIPO ASIGN puntocoma V
+	V : id dospuntos TIPO V
+	| 
 	'''
-'''
+
+	
+
 def p_TIPO(p):
-
-    TIPO : int
-    TIPO : float
-    TIPO : vectint
-    TIPO : vectfloat
-    TIPO : matint
-    TIPO : matfloat
-    TIPO : cubint
-    TIPO : cubfloat
-
-'''
-def p_TIPO(p):
-    '''
-    TIPO : int
-    TIPO : float
-    '''
-
-def p_ASIGN(p):
-    '''
-    ASIGN : 
-	ASIGN : dospuntos equal VAL
-    '''
-
-def p_VAL(p):
-    '''
-    VAL : E
-	VAL : ARRAY
-    '''
-
-def p_ARRAY(p):
 	'''
-    ARRAY : 
-	ARRAY : ap COM dp
-	ARRAY : ap COM dp coma ap COM dp
-	ARRAY : ap COM dp coma ap COM dp coma ap COM dp
+	TIPO : int ASIGNINT puntocoma
+	| float ASIGNFLOAT puntocoma
 	'''
-def p_COM(p):
+	if (tabla_simbolos.get(p[-2]) != None):
+		print(p[-2])
+		print("ya existe")
+		sys.exit()
+	else:
+		tabla_simbolos[p[-2]]=p[1]
+		print(tabla_simbolos)
+def p_ASIGNINT(p):
 	'''
-    COM : E
-    COM : E coma COM
+	ASIGNINT : dospuntos equal VALINT
+	| 
+	'''
+
+def p_ASIGNFLOAT(p):
     '''
+	ASIGNFLOAT : dospuntos equal VALFLOAT
+				|
+    '''
+
+def p_VALINT(p):
+    '''
+    VALINT : intv
+	         | ARRAYINT
+    '''
+
+def p_VALFLOAT(p):
+    '''
+    VALFLOAT : floatv
+				| ARRAYFLOAT
+    '''
+
+def p_ARRAYINT(p):
+	'''
+	ARRAYINT : ap COMINT dp
+	| ap COMINT dp coma ap COMINT dp
+	| ap COMINT dp coma ap COMINT dp coma ap COMINT dp
+	|
+	'''
+
+def p_ARRAYFLOAT(p):
+	'''
+	ARRAYFLOAT : ap COMFLOAT dp
+	| ap COMFLOAT dp coma ap COMFLOAT dp
+	| ap COMFLOAT dp coma ap COMFLOAT dp coma ap COMFLOAT dp
+	|
+	'''
+
+def p_COMINT(p):
+	'''
+    COMINT : intv
+	| intv coma COMINT
+    '''
+
+def p_COMFLOAT(p):
+	'''
+    COMFLOAT : floatv
+	| floatv coma COMFLOAT
+    '''
+	
 
 #Revisar la instruccion 3 para opner una E adentro de otra E
 def p_E(p):
 	'''
-	E : id
-    E : not id
-	E : ap E OPER E dp 
-    E : id OPER id
+	E : NUM OPER
+	| ap E dp OPER
+	'''
+
+def p_NUM(p):
+	'''
+	NUM : id
+	| intv
+	| floatv
 	'''
 
 def p_OPER(p):
 	'''
-	OPER : mas
-    OPER : menos
-    OPER : mult
-    OPER : div
-    OPER : less
-    OPER : greater
-    OPER : equal
-    OPER : and
-    OPER : or
-    '''
+	OPER : mas E
+	| menos E
+	| mult E
+	| div E
+	| 
+	'''
 
 def p_PF(p):
 	'''
-    PF : 
 	PF : P PF
-    PF : F PF
+	| F PF
+	|
 	'''
 def p_P(p):
 	'''
@@ -293,17 +300,17 @@ def p_F(p):
 
 def p_ST(p):
 	'''
-	ST :
-	ST : id ARRAY dospuntos equal E puntocoma ST
-	ST : if E then ST ELSE end if puntocoma ST
-    ST : for id in id punto punto id loop ST end loop puntocoma ST
-    ST : loop ST exit when E puntocoma end loop puntocoma ST
+	ST : id ARRAYFLOAT dospuntos equal E puntocoma ST
+	| if E then ST ELSE end if puntocoma ST
+	| for id in id punto punto id loop ST end loop puntocoma ST
+	| loop ST exit when E puntocoma end loop puntocoma ST
+	|
 
     '''
 def p_ELSE(p):
 	'''
-	ELSE :
 	ELSE : else ST
+	|
 	'''
 
 
@@ -318,5 +325,6 @@ with open("text.txt", "r") as file:
         line_strip = readline.strip()
         newline_break += ' ' +line_strip
 print(newline_break)
+
 
 parser.parse(newline_break)
