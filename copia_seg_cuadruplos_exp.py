@@ -305,7 +305,7 @@ def p_E(p):
 		pila_operandos.pop()
 		temp=avail_temporales[0]
 		avail_temporales.pop(0)
-		pila_cuadruplos.append([p[2],op1,op2,temp])
+		pila_cuadruplos.append((p[2],op1,op2,temp))
 		contador[0]+=1
 		pila_operandos.append(temp)
 		print(pila_operandos)
@@ -325,7 +325,7 @@ def p_T(p):
 		pila_operandos.pop()
 		temp=avail_temporales[0]
 		avail_temporales.pop(0)
-		pila_cuadruplos.append([p[2],op1,op2,temp])
+		pila_cuadruplos.append((p[2],op1,op2,temp))
 		contador[0]+=1
 		pila_operandos.append(temp)
 
@@ -384,61 +384,16 @@ def p_F(p):
 def p_ST(p):
 	'''
 	ST : ASIG ST
-	| if E then THEN ST ELSE end END if puntocoma ST
+	| if E then ST ELSE end if puntocoma ST
 	| for id in id punto punto id loop ST end loop puntocoma ST
-	| loop LOOP ST exit when E JUMP puntocoma end loop puntocoma ST
+	| loop ST exit when E puntocoma end loop puntocoma ST
 	|
     '''
-
-def p_LOOP(p):
-	'''
-	LOOP : 
-	'''
-	print("LOOP")
-	pila_saltos.append(contador[0])
-
-def p_JUMP(p):
-	'''
-	JUMP : 
-	'''
-	aux=pila_saltos[-1]
-	pila_saltos.pop()
-	res_exp=pila_operandos[-1]
-	pila_operandos.pop()
-	avail_temporales.append(res_exp)
-	pila_cuadruplos.append(["gtt",res_exp,aux])
-	
-
-def p_THEN(p):
-	'''
-	THEN : 
-	'''
-	print("adentro then")
-	res_exp=pila_operandos[-1]
-	pila_operandos.pop()
-	avail_temporales.append(res_exp)
-	pila_cuadruplos.append(["gtf",res_exp])
-	print(pila_cuadruplos)
-	contador[0]+=1
-	pila_saltos.append(contador[0]-1)
-
-def p_END(p):
-	'''
-	END : 
-	'''
-	aux=pila_saltos[-1]
-	pila_saltos.pop()
-	tmp=pila_cuadruplos[aux]
-	tmp.append(contador[0])
-	pila_cuadruplos[aux]=tmp
-
-
-
 def p_ASIG(p):
 	'''
 	ASIG : id ARRAYFLOAT dospuntos equal E puntocoma
     '''
-	pila_cuadruplos.append(["=",pila_operandos[-1],p[1]])
+	pila_cuadruplos.append(("=",pila_operandos[-1],p[1]))
 	contador[0]+=1
 	pila_operandos.pop()
 	print(pila_operandos)
@@ -446,25 +401,9 @@ def p_ASIG(p):
 
 def p_ELSE(p):
 	'''
-	ELSE : else HELPERELSE ST
+	ELSE : else ST
 	|
 	'''
-
-def p_HELPERELSE(p):
-	'''
-	HELPERELSE : 
-	'''
-	print("adentro else")
-	pila_cuadruplos.append(["goto"])
-	print(pila_cuadruplos)
-	contador[0]+=1
-	print(pila_saltos)
-	aux=pila_saltos[-1]
-	pila_saltos.pop()
-	tmp=pila_cuadruplos[aux]
-	tmp.append(contador[0])
-	pila_cuadruplos[aux]=tmp
-	pila_saltos.append(contador[0]-1)
 
 
 

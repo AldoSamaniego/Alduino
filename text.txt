@@ -1,16 +1,23 @@
-id : int := (id,id,id),(id,id,id),(id,id,id);
-id : float ;
+aldo : int;
+a : float := 1.0;
+b : float := 1.1;
+m : int :=12;
 
 
-procedure id is
-        id : int ;
+main is
+        id : int :=1;
+        jamir : int :=1;
 begin
-        id : = id;
+        jamir : =id+(6/3)+5*(7*3);
+        if a=b then
+                jamir := 9;
+        else
+                jamir :=12;
+        end if;
+        m:=5;
+        loop
+                m:=m+1;
+        exit when m>=10;
+        end loop;
+end main;
 
-end id;
-
-
- main is
- begin
-  id := id;
-  end main;
